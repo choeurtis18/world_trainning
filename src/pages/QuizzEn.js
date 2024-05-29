@@ -129,8 +129,8 @@ const QuizEn = () => {
                         <ul className="list-disc pl-5 mb-4">
                             {quizWords.map((word, index) => (
                                 <li key={index} className={getAnswerClass(userAnswers[index], word.fr)}>
-                                    {word.en} - {word.fr} ({getAnswerClass(userAnswers[index], word.fr) === 'text-green-500' ? 'Correct' : (getAnswerClass(userAnswers[index], word.fr) === 'text-orange-500' ? 'Partiel' : 'Incorrect')})<br />
-                                    <span className="text-gray-500">Votre réponse: {userAnswers[index]}</span>
+                                    {word.en} = {word.fr} ({getAnswerClass(userAnswers[index], word.fr) === 'text-green-500' ? 'Correct' : (getAnswerClass(userAnswers[index], word.fr) === 'text-orange-500' ? 'Partiel' : 'Incorrect')})<br />
+                                    <span className="text-gray-500">Votre réponse était: {userAnswers[index]}</span>
                                 </li>
                             ))}
                         </ul>
