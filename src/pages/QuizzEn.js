@@ -89,7 +89,7 @@ const QuizEn = () => {
     };
 
     return (
-        <div className='flex justify-center'>
+        <div className='flex justify-center m-4'>
             <div className="mx-8 lg:mx-16 bg-white p-8 rounded shadow-md w-full max-w-md">
                 {!isQuizStarted ? (
                     <>

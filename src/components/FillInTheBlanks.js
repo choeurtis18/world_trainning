@@ -92,11 +92,13 @@ const FillInTheBlanks = () => {
     const [userAnswers, setUserAnswers] = useState(Array(5).fill(''));
     const [score, setScore] = useState(null);
     const [randomSentences, setRandomSentences] = useState(getRandomSentences(5));
+    const [results, setResults] = useState([]);
 
     const generateNewSentences = () => {
         setRandomSentences(getRandomSentences(5));
         setUserAnswers(Array(5).fill(''));
         setScore(null);
+        setResults([]);
     };
 
     useEffect(() => {
@@ -111,33 +113,46 @@ const FillInTheBlanks = () => {
 
     const handleSubmit = () => {
         let correctAnswers = 0;
-        userAnswers.forEach((answer, index) => {
-            if (answer.toLowerCase() === randomSentences[index].answer.toLowerCase()) {
+        const newResults = userAnswers.map((answer, index) => {
+            const isCorrect = answer.toLowerCase().trim() === randomSentences[index].answer.toLowerCase().trim();
+            if (isCorrect) {
                 correctAnswers++;
             }
+            return { isCorrect, correctAnswer: randomSentences[index].answer };
         });
         setScore(correctAnswers);
+        setResults(newResults);
     };
 
     return (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center m-4'>
             <h2 className='text-2xl font-bold mb-4'>Fill in the Blanks</h2>
             {randomSentences.map((item, index) => (
-                <div key={index} className='mb-2'>
+                <div key={index} className='mb-4 w-full max-w-md'>
                     <p className='text-lg'>
                         {item.sentence.split('________')[0]}
                         <input
                             type="text"
-                            className='border-b-2 border-gray-400 focus:outline-none focus:border-blue-500'
+                            className={`border-b-2 ${
+                                results[index]?.isCorrect ? 'border-green-500 text-green-600' : 'border-gray-400'
+                            } focus:outline-none focus:border-blue-500`}
                             onChange={(e) => handleChange(index, e.target.value)}
+                            value={userAnswers[index]}
+                            disabled={score !== null}
                         />
                         {item.sentence.split('________')[1]}
                     </p>
+                    {score !== null && (
+                        <p className={`${results[index]?.isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+                            {results[index]?.isCorrect ? 'Correct' : `Incorrect, the correct answer was: ${results[index].correctAnswer}`}
+                        </p>
+                    )}
                 </div>
             ))}
             <button
                 className='mt-4 bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700'
                 onClick={handleSubmit}
+                disabled={score !== null}
             >
                 Submit
             </button>

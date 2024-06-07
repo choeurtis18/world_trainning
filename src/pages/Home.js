@@ -44,7 +44,7 @@ export default function Home() {
             {exercise === 'situation' && <Situation />}
             {exercise === 'translation' && <Translation />}
             {exercise === 'vocabulary' && (
-                <div className='flex flex-col items-center'>
+                <div className='flex flex-col items-center m-4'>
                     <div className="w-full max-w-md mb-4">
                         <input
                             className="border-2 border-gray-300 bg-white h-10 w-full px-5 rounded-lg text-sm focus:outline-none"

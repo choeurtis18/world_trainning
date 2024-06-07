@@ -24,7 +24,7 @@ const Situation = () => {
     };
 
     return (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center m-4'>
             <h2 className='text-2xl font-bold mb-4'>Putting it into practice</h2>
             <p className='mb-4'>
                 Rédigez un paragraphe avec ces mots
